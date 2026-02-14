@@ -1,0 +1,180 @@
+.container.open {
+  background-color: #0f1115;
+}
+.container.open aside {
+  background-color: #161a22;
+  box-shadow: 
+    4px 0 18px rgba(0, 0, 0, 0.55),
+    1px 0 0 rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgb(62, 62, 62);
+}
+.container.open .navlink div {
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  padding-left: 10px;
+  margin-right: 10px;
+}
+.container.open .navlink div:hover {
+  background-color: #30335c;
+}
+.container.open .navlink div:hover a {
+  color: white;
+}
+.container.open .navlink div.active {
+  background-color: #54546a;
+}
+.container.open .navlink a {
+  color: #161a22;
+}
+
+.container.open .sidebarhead {
+  background-color: #161a22;
+  border-bottom: 1px solid rgb(63, 63, 63);
+  color: #e6e6e6;
+}
+.container.open .profileheader {
+  color: #c4c4cc;
+  border-bottom: 1px solid rgb(66, 66, 66);
+  background-color: #161a22;
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.6);
+}
+.container.open .profileheader img {
+  background-color: rgb(235, 235, 246);
+  border-radius: 20%;
+}
+.container.open .sections {
+  background-color: #121212;
+  color: white;
+}
+.container.open .dashboard h3 {
+  color: #e6e6e6;
+}
+.container.open .taskdue {
+  color: rgb(249, 237, 250);
+  border-radius: 10px;
+  background-color: #2d2d3a;
+   border: 1px solid rgb(133, 133, 136); 
+}
+.container.open .dashboardtask .titleimg .title{
+  color: white;
+}
+.container.open .dashboardtask .taskinfo span{
+  color: white;
+}
+.container.open .taskdue img {
+  background-color: rgb(235, 235, 246);
+  padding: 1px;
+}
+.container.open .dashboard-cards > div {
+  background-color: #2d2d3a;
+  border: 1px solid rgb(133, 133, 136);
+  border-radius: 10px;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: rgb(232, 230, 229);
+  color: rgb(249, 237, 250);
+}
+.container.open hr {
+  border: 1px solid #656569;
+}
+/* task */
+.container.open .addtask-form {
+  background-color: #2d2d3a;
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .addtask-form span {
+  color: #e6e6e6;
+}
+.container.open .addtask-form input,
+.container.open .addtask-form select {
+  background-color: #464658;
+  color: rgb(249, 237, 250);
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .addtask-form input::placeholder {
+  color: rgb(209, 200, 200);
+}
+.container.open .addtask-form button {
+  background-color: #5b5b83;
+  color: rgb(209, 200, 200);
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .addtask-form button:hover {
+  background-color: #41417f;
+}
+.container.open .taskselection select {
+  background-color: #464658;
+  color: rgb(209, 200, 200);
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .task-item{
+background-color: #2d2d3a;
+}
+.container.open .task-item img{
+  background-color: white;
+  height: 25px;
+  padding: 1px;
+}
+.container.open .task-item .actions .done{
+  background-color: #2c5542;
+}
+.container.open .task-item .actions button{
+  background-color: #084b5d;
+  border-radius: 5px;
+}
+/* analytics */
+.container.open .analytics-section h3 {
+  color: #e6e6e6;
+}
+.container.open .analytics-section h4 {
+  color: rgb(249, 237, 250);
+}
+.container.open .days-charts {
+  background-color: #2d2d3a;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .days-labels {
+  color: rgb(249, 237, 250);
+}
+.container.open .Analytics-select select {
+  background-color: #2d2d3a;
+  color: rgb(249, 237, 250);
+  border: 1px solid rgb(133, 133, 136);
+}
+/* settings */
+.container.open .settings-sec-title {
+  color: #e6e6e6;
+}
+.container.open .darkmode {
+  background-color: #2d2d3a;
+  color: rgb(249, 237, 250);
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .accent-color {
+  background-color: #2d2d3a;
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .compactmode {
+  background-color: #2d2d3a;
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open .resetbtnsection {
+  background-color: #2d2d3a;
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open button {
+  background-color: #464658;
+  border: 1px solid rgb(133, 133, 136);
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 136);
+}
+.container.open button:active {
+  background-color: #62627c;
+}

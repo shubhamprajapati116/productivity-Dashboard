@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+     <link rel="stylesheet" href="./css/darkmode.css">
+  </head>
+  <body data-page="settings">
+    <div class="container">
+      <aside>
+        <div class="sidebarhead">
+          <span>Productivity Dashboard</span>
+        </div>
+        <nav class="navlink">
+          <div>
+            <img src="./assets/images/dashboard.png" alt="dashboard logo" />
+            <a href="./index.html">Dashboard</a>
+          </div>
+          <div>
+            <img src="./assets/images/task.png" alt="task logo" />
+            <a href="./taskmanager.html">Tasks</a>
+          </div>
+          <div>
+            <img src="./assets/images/analysis.png" alt="analysis logo" />
+            <a href="./analytics.html">Analytics</a>
+          </div>
+          <div class="active">
+            <img src="./assets/images/settings.png" alt="settings logo" />
+            <a href="./settings.html">Settings</a>
+          </div>
+        </nav>
+      </aside>
+
+      <main>
+        <header>
+          <div class="profileheader">
+            <div>
+              
+              <span>settings</span>
+              <img src="./assets/images/downarrow.png" class="downarrow" alt="downarrow logo" />
+            </div>
+            <div>
+              <img src="./assets/images/crescent-moon.png" class="darkmode-icon" alt="moon logo" />
+              <img src="./assets/images/profile.png" alt="profile logo" />
+              <span>Alex</span>
+              <img src="./assets/images/downarrow.png" alt="downarrow logo" />
+            </div>
+          </div>
+        </header>
+        <section class="settings sections">
+          <span class="settings-sec-title">Appearance</span>
+
+          <div class="darkmode">
+            <span>Dark mode</span>
+            <label class="switch"  >
+              <input type="checkbox" class="darkcheckbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <span class="settings-sec-title">Accent color</span>
+          <div class="accent-color">
+            <div class="bluebox">
+              <p></p>
+            </div>
+            <div class="lightbluebox">
+              <p></p>
+            </div>
+            <div class="purplebox">
+              <p></p>
+            </div>
+            <div class="greenbox">
+              <p></p>
+            </div>
+            <div class="orangebox">
+              <p></p>
+            </div>
+          </div>
+          <span class="settings-sec-title">Layout</span>
+          <div class="compactmode">
+            <span>compact mode</span>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <span class="settings-sec-title">Danger Zone</span>
+          <div class="resetbtnsection">
+            <button>Reset All Data</button>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

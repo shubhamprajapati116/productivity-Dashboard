@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/darkmode.css">
+  </head>
+  <body data-page="analytics">
+    <div class="container">
+      <aside>
+        <div class="sidebarhead">
+          <span>Productivity Dashboard</span>
+        </div>
+        <nav class="navlink">
+          <div>
+            
+            <img src="./assets/images/dashboard.png" alt="dashboard logo" />
+            <a href="./index.html">Dashboard</a>
+          </div>
+          <div>
+            <img src="./assets/images/task.png" alt="task logo" />
+            <a href="./taskmanager.html">Tasks</a>
+          </div>
+          <div class="active">
+            <img src="./assets/images/analysis.png" alt="analysis logo" />
+            <a href="./analytics.html">Analytics</a>
+          </div>
+          <div>
+            <img src="./assets/images/settings.png" alt="settings logo" />
+            <a href="./settings.html">Settings</a>
+          </div>
+        </nav>
+      </aside>
+
+      <main>
+        <header>
+          <div class="profileheader">
+            <div>
+              
+              <span>Analytics</span>
+              <img
+                src="./assets/images/downarrow.png"
+                class="downarrow"
+                alt="downarrow logo"
+              />
+            </div>
+            <div>
+              <img
+                src="./assets/images/crescent-moon.png"
+                class="darkmode-icon"
+                alt="moon logo"
+              />
+              <img src="./assets/images/profile.png" alt="profile logo" />
+              <span>Alex</span>
+              <img src="./assets/images/downarrow.png" alt="downarrow logo" />
+            </div>
+          </div>
+        </header>
+        <section class="Analytics-section sections">
+          <h3>Analytics</h3>
+          <hr />
+          <h4>Weekly Productivity</h4>
+          <div class="days-charts">
+            <div class="charts-wrapper">
+              <div class="monday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+              <div class="tuesday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+              <div class="wednesday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+              <div class="thursday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+              <div class="friday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+              <div class="saturday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+              <div class="sunday-bar">
+                <div class="first-bar"></div>
+                <div class="second-bar"></div>
+              </div>
+            </div>
+            <hr class="chart-base" />
+          </div>
+
+          <div class="Analytics-select">
+            <select>
+              <option value="" disabled selected>status:All</option>
+              <option value="pending">pending</option>
+              <option value="in progress">in progress</option>
+              <option value="completed">completed</option>
+            </select>
+            <select>
+              <option value="" disabled selected>category:All</option>
+              <option value="work">work</option>
+              <option value="personal">personal</option>
+              <option value="study">study</option>
+              <option value="finance">finance</option>
+            </select>
+            <select>
+              <option value="" disabled selected>sort:by due date</option>
+              <option value="by priority">by priority</option>
+              <option value="by Completion Rate">by completion</option>
+              <option value="by time spent">by Alphabetical</option>
+            </select>
+            <p></p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

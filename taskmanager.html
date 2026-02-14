@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/darkmode.css" />
+  </head>
+  <body data-page="taskmanager">
+    <div class="container">
+      <aside>
+        <div class="sidebarhead">
+          <span>Productivity Dashboard</span>
+        </div>
+        <nav class="navlink">
+          <div>
+            <img src="./assets/images/dashboard.png" alt="dashboard logo" />
+            <a href="./index.html">Dashboard</a>
+          </div>
+          <div class="active">
+            <img src="./assets/images/task.png" alt="task logo" />
+            <a href="./taskmanager.html">Tasks</a>
+          </div>
+          <div>
+            <img src="./assets/images/analysis.png" alt="analysis logo" />
+            <a href="./analytics.html">Analytics</a>
+          </div>
+          <div>
+            <img src="./assets/images/settings.png" alt="settings logo" />
+            <a href="./settings.html">Settings</a>
+          </div>
+        </nav>
+      </aside>
+      <main>
+        <header>
+          <div class="profileheader">
+            <div>
+            
+              <span>Tasks</span>
+              <img
+                src="./assets/images/downarrow.png"
+                class="downarrow"
+                alt="downarrow logo"
+              />
+            </div>
+            <div>
+              <img
+                src="./assets/images/crescent-moon.png"
+                class="darkmode-icon"
+                alt="moon logo"
+              />
+              <img src="./assets/images/profile.png" alt="profile logo" />
+              <span>Alex</span>
+              <img src="./assets/images/downarrow.png" alt="downarrow logo" />
+            </div>
+          </div>
+        </header>
+        <section class="tasksection sections">
+          <form class="addtask-form">
+            <span>Add New Task</span>
+            <input
+              class="Tasks-input titletask"
+              type="text"
+              placeholder="Task Title"
+              required
+            />
+            <input
+              class="Tasks-input desctask"
+              type="text"
+              placeholder="Description"
+            />
+            <hr />
+            <div class="task-select-group">
+              <select class="priority">
+                <option value="" disabled selected>Priority</option>
+                <option value="high">high</option>
+                <option value="medium">medium</option>
+                <option value="low">low</option>
+              </select>
+              <select class="category">
+                <option value="" disabled selected>Categeory</option>
+                <option value="work">work</option>
+                <option value="personal">personal</option>
+                <option value="study">study</option>
+                <option value="other">other</option>
+              </select>
+            </div>
+            <button type="button" id="addtaskbtn">Add Task</button>
+          </form>
+          <div class="taskselection">
+            <select class="filter-priority">
+              <option value="">Priority:All</option>
+              <option value="high">high</option>
+              <option value="medium">medium</option>
+              <option value="low">low</option>
+            </select>
+            <select class="filter-category">
+              <option value="">Catageory:All</option>
+              <option value="work">work</option>
+              <option value="personal">personal</option>
+              <option value="study">study</option>
+              <option value="other">other</option>
+            </select>
+            <select class="filter-status">
+              <option value="">Status:All</option>
+              <option value="pending">pending</option>
+              <option value="completed">completed</option>
+            </select>
+          </div>
+          <div class="tasklist"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./js/script.js" defer></script>
+  </body>
+</html>

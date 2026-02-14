@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productivity Dashboard for creaters</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/darkmode.css" />
+  </head>
+  <body data-page="dashboard">
+    <div class="container">
+      <aside>
+        <div class="sidebarhead">
+          <span>Productivity Dashboard</span>
+        </div>
+        <nav class="navlink">
+          <div class="active">
+            <img src="./assets/images/dashboard.png" alt="dashboard logo" />
+            <a href="index.html">Dashboard</a>
+          </div>
+          <div>
+            <img src="./assets/images/task.png" alt="task logo" />
+            <a href="./taskmanager.html">Tasks</a>
+          </div>
+          <div>
+            <img src="./assets/images/analysis.png" alt="analysis logo" />
+            <a href="./analytics.html">Analytics</a>
+          </div>
+          <div>
+            <img src="./assets/images/settings.png" alt="settings logo" />
+            <a href="./settings.html">Settings</a>
+          </div>
+        </nav>
+      </aside>
+
+      <main>
+        <header>
+          <div class="profileheader">
+            <div>
+              
+              <span id="profileheader">Dashboard</span>
+              <img
+                src="./assets/images/downarrow.png"
+                class="downarrow"
+                alt="downarrow logo"
+              />
+            </div>
+            <div>
+              <img
+                src="./assets/images/crescent-moon.png"
+                class="darkmode-icon"
+                alt="moon logo"
+              />
+              <img
+                src="./assets/images/profile.png"
+                alt="profile logo"
+                class="profile"
+              />
+              <span>Alex</span>
+              <img src="./assets/images/downarrow.png" alt="downarrow logo" />
+            </div>
+          </div>
+        </header>
+
+        <section class="dashboard sections">
+          <h3>Dashboard</h3>
+          <div class="dashboard-cards">
+            <div>
+              <h5>Today's Tasks</h5>
+              <span class="taskcounts">5 tasks</span>
+            </div>
+            <div>
+              <h5>Focus Time</h5>
+              <span class="focustime">2h 30m</span>
+            </div>
+            <div>
+              <h5>Completion Rate</h5>
+              <span class="completionrate">75%</span>
+            </div>
+            <div>
+              <h5>Weekly Progress</h5>
+              <div class="weekly-chart">
+                <div class="chart">
+                  <div class="mon"></div>
+                  <div class="tue"></div>
+                  <div class="wed"></div>
+                  <div class="thu"></div>
+                  <div class="fri"></div>
+                  <div class="sat"></div>
+                  <div class="sun"></div>
+                </div>
+                <hr class="weeklychart-base" />
+              </div>
+            </div>
+          </div>
+          <div class="taskdue">
+            <h4>Tasks Due Today</h4>
+            
+            <hr />
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
+
+
