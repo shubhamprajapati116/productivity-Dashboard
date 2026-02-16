@@ -717,19 +717,92 @@ input:checked + .slider::before {
     width: 100%;
   }
 }
+@media (max-width: 480px) {
+  .profileheader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    padding: 12px;
+  }
 
+  .profileheader > div {
+    gap: 6px;
+  }
 
+  .profileheader img {
+    width: 22px;
+    height: 22px;
+  }
 
+  .dashboard h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
 
+  .dashboard-cards > div {
+    font-size: 16px;
+    padding: 15px;
+  }
 
+  .taskcounts {
+    font-size: 22px;
+  }
 
+  .dashboardtask {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 14px;
+  }
 
+  .titleimg {
+    width: 100%;
+  }
 
+  .titleimg .title {
+    font-size: 16px;
+  }
 
+  .taskinfo {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .taskinfo span {
+    width: auto;
+    font-size: 14px;
+  }
+
+  .weekly-chart {
+    margin-top: 20px;
+  }
+
+  .Tasks-input {
+    font-size: 15px;
+  }
+
+  .task-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .task-item strong {
+    font-size: 16px;
+  }
+
+  .task-item .content p,
+  .task-item .actions p {
+    font-size: 14px;
+  }
+
+  .resetbtnsection button {
+    width: 100%;
+    font-size: 18px;
+  }
+}
 
 @media (max-width: 480px) {
-
-  /* ===== GLOBAL ===== */
   body {
     font-size: 14px;
   }
@@ -738,9 +811,8 @@ input:checked + .slider::before {
     flex-direction: column;
   }
 
-  /* ===== HEADER (FIXED) ===== */
   .profileheader {
-    flex-direction: row;            /* ❗ column NAHI */
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 12px;
@@ -758,7 +830,6 @@ input:checked + .slider::before {
     height: 22px;
   }
 
-  /* ===== SIDEBAR / NAV ===== */
   aside {
     width: 100%;
   }
@@ -789,7 +860,6 @@ input:checked + .slider::before {
     font-size: 12px;
   }
 
-  /* ===== DASHBOARD ===== */
   .dashboard {
     padding: 15px;
   }
@@ -813,7 +883,6 @@ input:checked + .slider::before {
     font-size: 22px;
   }
 
-  /* ===== TASKS DUE TODAY (FIX) ===== */
   .dashboardtask {
     flex-direction: column;
     align-items: flex-start;
@@ -844,7 +913,6 @@ input:checked + .slider::before {
     width: auto;
   }
 
-  /* ===== WEEKLY CHART ===== */
   .weekly-chart {
     margin-top: 20px;
   }
@@ -853,7 +921,6 @@ input:checked + .slider::before {
     width: 8px;
   }
 
-  /* ===== TASK PAGE ===== */
   .tasksection {
     padding: 15px;
   }
@@ -888,7 +955,6 @@ input:checked + .slider::before {
     width: auto;
   }
 
-  /* ===== ANALYTICS ===== */
   .Analytics-section h3 {
     font-size: 22px;
   }
@@ -907,7 +973,6 @@ input:checked + .slider::before {
     gap: 10px;
   }
 
-  /* ===== SETTINGS ===== */
   .settings {
     padding: 15px;
   }

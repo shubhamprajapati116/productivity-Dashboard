@@ -3,7 +3,7 @@ const sections = document.querySelector(".sections");
 const dashdarkicon = document.querySelector(".darkmode-icon");
 const darkmodeswitch = document.querySelector(".darkcheckbox");
 const container = document.querySelector(".container");
-const navlinks = document.querySelectorAll(".navlink");
+// const navlinks = document.querySelectorAll(".navlink");
 const addtaskbtnn = document.getElementById("addtaskbtn");
 const taskselect = document.querySelectorAll(".task-select-group");
 const tasklist = document.querySelector(".tasklist");
@@ -14,7 +14,6 @@ const counttasks = document.querySelector(".taskcounts");
 const completionratebox = document.querySelector(".completionrate");
 
 let page = document.body.dataset.page;
-
 
 downarrow.forEach((arrow) => {
   arrow.addEventListener("click", () => {
@@ -29,6 +28,7 @@ downarrow.forEach((arrow) => {
 dashdarkicon.addEventListener("click", () => {
   let isdarkmode = container.classList.toggle("open");
   localStorage.setItem("darkmode", isdarkmode);
+  darkmodeswitch.checked = isdarkmode;
 });
 let localvl = localStorage.getItem("darkmode");
 if (localvl === "true") {
@@ -40,8 +40,7 @@ if (darkmodeswitch) {
     container.classList.toggle("open", darkmodeswitch.checked);
     localStorage.setItem("darkmode", darkmodeswitch.checked);
   });
-
-  darkmodeswitch.checked = isdarkmode;
+  
 }
 
 if (addtaskbtnn) {
@@ -70,7 +69,8 @@ if (addtaskbtnn) {
       endtime: null,
       date: new Date().toISOString().split("T")[0],
     };
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    console.log(task);
+    let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
     tasks.push(task);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     rendertask(task);
@@ -92,7 +92,9 @@ function rendertask(task) {
   <p>${task.status}</p>
   <p>${task.priority}</p>
   ${
-    task.status === "pending"? `<button class="completed-btn">complete</button>`: `<span class="done">done</span>`
+    task.status === "pending"
+      ? `<button class="completed-btn">complete</button>`
+      : `<span class="done">done</span>`
   }
   <img src="./assets/images/deldetbtn.png" alt="delet logo" class="tasklistdelet" />
   </div>
@@ -106,7 +108,7 @@ if (tasklist) {
       const taskitem = e.target.closest(".task-item");
 
       const id = Number(taskitem.dataset.id);
-      let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 
       tasks = tasks.map((task) => {
         if (task.id === id) {
@@ -115,6 +117,7 @@ if (tasklist) {
         }
         return task;
       });
+      console.log(tasks);
       localStorage.setItem("tasks", JSON.stringify(tasks));
       tasklist.innerHTML = "";
       tasks.forEach(rendertask);
@@ -124,7 +127,7 @@ if (tasklist) {
       const taskitem = e.target.closest(".task-item");
       const id = Number(taskitem.dataset.id);
       taskitem.remove();
-      let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
       tasks = tasks.filter((task) => task.id != id);
       localStorage.setItem("tasks", JSON.stringify(tasks));
     }
@@ -136,9 +139,8 @@ function filtertask() {
   const category = categoryselect.value;
   const status = statusselect.value;
 
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   tasklist.innerHTML = "";
-
   const filterdtask = tasks.filter((task) => {
     const filterdpriority = priority === "" || task.priority === priority;
     const filterdcategory = category === "" || task.category === category;
@@ -154,24 +156,16 @@ if (priorityselect && categoryselect && statusselect) {
   statusselect.addEventListener("change", filtertask);
 }
 window.addEventListener("DOMContentLoaded", () => {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   tasks.forEach(rendertask);
 });
-
-
-
-
-
-
-
 if (page === "dashboard") {
   const bars = document.querySelectorAll(".chart div");
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   let todaydate = new Date().toISOString().split("T")[0];
   const taskduelist = document.querySelector(".taskdue");
   let count = 0;
   let compltedtodaytask = 0;
-
 
   tasks.forEach((task) => {
     if (task.date === todaydate) {
@@ -195,7 +189,7 @@ if (page === "dashboard") {
       }
     }
   });
-  
+
   counttasks.textContent = count;
   let completionrate = 0;
   if (count > 0) {
@@ -217,13 +211,13 @@ if (page === "dashboard") {
     }
   });
   let totakminute = Math.floor(totalfocusms / 60000);
-  let totalsec = Math.floor(totakminute * 60);
+  let totalsec = Math.floor((totalfocusms % 60000) / 1000);
   let hours = Math.floor(totakminute / 60);
   let minutes = totakminute % 60;
   const focusbox = document.querySelector(".focustime");
-
-  focusbox.textContent = `${hours}H ${minutes}m ${totalsec}s`;
-
+  if (focusbox) {
+    focusbox.textContent = `${hours}H ${minutes}m ${totalsec}s`;
+  }
   let weeklydata = {};
   let today = new Date();
 
@@ -248,17 +242,12 @@ if (page === "dashboard") {
 
     const height = count > 0 ? count * 15 : 6;
     bar.style.height = height + "px";
-    });
+  });
 }
-
-
-
-
-
 
 if (page === "analytics") {
   let today = new Date();
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   const daybars = document.querySelectorAll(".charts-wrapper > div");
 
   let weekdata = {};
@@ -270,7 +259,7 @@ if (page === "analytics") {
     console.log(key);
     weekdata[key] = { planned: 0, completed: 0 };
   }
-  
+
   tasks.forEach((task) => {
     if (weekdata[task.date]) {
       weekdata[task.date].planned++;
@@ -280,9 +269,8 @@ if (page === "analytics") {
     }
   });
   let weekEntries = Object.entries(weekdata);
-  
+
   weekEntries.forEach(([key, day], index) => {
-    
     const container = daybars[index];
     if (!container) return;
 
@@ -300,7 +288,7 @@ if (page === "analytics") {
     const tooltip = document.createElement("div");
     tooltip.className = "bar-tooltip";
     tooltip.innerHTML = `
-    <strong>${dayName.toUpperCase()} )</strong><br>
+    <strong>${dayName.toUpperCase()}</strong><br>
     Planned: ${day.planned}<br>
     Completed: ${day.completed}
   `;
