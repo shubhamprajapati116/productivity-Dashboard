@@ -5,15 +5,22 @@ const darkmodeswitch = document.querySelector(".darkcheckbox");
 const container = document.querySelector(".container");
 // const navlinks = document.querySelectorAll(".navlink");
 const addtaskbtnn = document.getElementById("addtaskbtn");
-const taskselect = document.querySelectorAll(".task-select-group");
+// const taskselect = document.querySelectorAll(".task-select-group");
 const tasklist = document.querySelector(".tasklist");
 const priorityselect = document.querySelector(".filter-priority");
 const categoryselect = document.querySelector(".filter-category");
 const statusselect = document.querySelector(".filter-status");
 const counttasks = document.querySelector(".taskcounts");
 const completionratebox = document.querySelector(".completionrate");
+const page = document.body.dataset.page;
 
-let page = document.body.dataset.page;
+function gettask() {
+  return JSON.parse(localStorage.getItem("tasks") || "[]");
+}
+
+function savetask(tasks) {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 downarrow.forEach((arrow) => {
   arrow.addEventListener("click", () => {
@@ -40,7 +47,6 @@ if (darkmodeswitch) {
     container.classList.toggle("open", darkmodeswitch.checked);
     localStorage.setItem("darkmode", darkmodeswitch.checked);
   });
-  
 }
 
 if (addtaskbtnn) {
@@ -69,10 +75,10 @@ if (addtaskbtnn) {
       endtime: null,
       date: new Date().toISOString().split("T")[0],
     };
-    console.log(task);
-    let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    
+     let tasks = gettask();
     tasks.push(task);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    savetask(tasks);
     rendertask(task);
   });
 }
@@ -108,8 +114,7 @@ if (tasklist) {
       const taskitem = e.target.closest(".task-item");
 
       const id = Number(taskitem.dataset.id);
-      let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-
+       let tasks = gettask();
       tasks = tasks.map((task) => {
         if (task.id === id) {
           task.status = "completed";
@@ -117,8 +122,7 @@ if (tasklist) {
         }
         return task;
       });
-      console.log(tasks);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
+      savetask(tasks);
       tasklist.innerHTML = "";
       tasks.forEach(rendertask);
     }
@@ -127,9 +131,9 @@ if (tasklist) {
       const taskitem = e.target.closest(".task-item");
       const id = Number(taskitem.dataset.id);
       taskitem.remove();
-      let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+       let tasks = gettask();
       tasks = tasks.filter((task) => task.id != id);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
+      savetask(tasks);
     }
   });
 }
@@ -139,7 +143,7 @@ function filtertask() {
   const category = categoryselect.value;
   const status = statusselect.value;
 
-  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+   const tasks = gettask();
   tasklist.innerHTML = "";
   const filterdtask = tasks.filter((task) => {
     const filterdpriority = priority === "" || task.priority === priority;
@@ -156,12 +160,12 @@ if (priorityselect && categoryselect && statusselect) {
   statusselect.addEventListener("change", filtertask);
 }
 window.addEventListener("DOMContentLoaded", () => {
-  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+   const tasks = gettask();
   tasks.forEach(rendertask);
 });
 if (page === "dashboard") {
   const bars = document.querySelectorAll(".chart div");
-  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+   let tasks = gettask();
   let todaydate = new Date().toISOString().split("T")[0];
   const taskduelist = document.querySelector(".taskdue");
   let count = 0;
@@ -247,7 +251,7 @@ if (page === "dashboard") {
 
 if (page === "analytics") {
   let today = new Date();
-  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+   let tasks = gettask();
   const daybars = document.querySelectorAll(".charts-wrapper > div");
 
   let weekdata = {};
