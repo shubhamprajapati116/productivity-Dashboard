@@ -3,9 +3,9 @@ const sections = document.querySelector(".sections");
 const dashdarkicon = document.querySelector(".darkmode-icon");
 const darkmodeswitch = document.querySelector(".darkcheckbox");
 const container = document.querySelector(".container");
-// const navlinks = document.querySelectorAll(".navlink");
+
 const addtaskbtnn = document.getElementById("addtaskbtn");
-// const taskselect = document.querySelectorAll(".task-select-group");
+
 const tasklist = document.querySelector(".tasklist");
 const priorityselect = document.querySelector(".filter-priority");
 const categoryselect = document.querySelector(".filter-category");
@@ -35,8 +35,11 @@ downarrow.forEach((arrow) => {
 dashdarkicon.addEventListener("click", () => {
   let isdarkmode = container.classList.toggle("open");
   localStorage.setItem("darkmode", isdarkmode);
-  darkmodeswitch.checked = isdarkmode;
+  if (darkmodeswitch) {
+    darkmodeswitch.checked = isdarkmode;
+  }
 });
+
 let localvl = localStorage.getItem("darkmode");
 if (localvl === "true") {
   container.classList.add("open");
@@ -46,40 +49,6 @@ if (darkmodeswitch) {
   darkmodeswitch.addEventListener("change", () => {
     container.classList.toggle("open", darkmodeswitch.checked);
     localStorage.setItem("darkmode", darkmodeswitch.checked);
-  });
-}
-
-if (addtaskbtnn) {
-  addtaskbtnn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const titleInput = document.querySelector(".titletask");
-    const priority = document.querySelector(".priority");
-    const category = document.querySelector(".category");
-    if (titleInput.value.trim() === "") {
-      alert("Title is required");
-      return;
-    } else if (priority.value === "") {
-      alert("priority is required");
-      return;
-    } else if (category.value === "") {
-      alert("category is required");
-      return;
-    }
-    const task = {
-      title: document.querySelector(".titletask").value,
-      priority: document.querySelector(".priority").value,
-      category: document.querySelector(".category").value,
-      id: Date.now(),
-      status: "pending",
-      taskstart: Date.now(),
-      endtime: null,
-      date: new Date().toISOString().split("T")[0],
-    };
-    
-     let tasks = gettask();
-    tasks.push(task);
-    savetask(tasks);
-    rendertask(task);
   });
 }
 function rendertask(task) {
@@ -108,13 +77,48 @@ function rendertask(task) {
     tasklist.appendChild(taskdiv);
   }
 }
+
+if (addtaskbtnn) {
+  addtaskbtnn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const titleInput = document.querySelector(".titletask");
+    const priority = document.querySelector(".priority");
+    const category = document.querySelector(".category");
+    if (titleInput.value.trim() === "") {
+      alert("Title is required");
+      return;
+    } else if (priority.value === "") {
+      alert("priority is required");
+      return;
+    } else if (category.value === "") {
+      alert("category is required");
+      return;
+    }
+    const task = {
+      title: document.querySelector(".titletask").value,
+      priority: document.querySelector(".priority").value,
+      category: document.querySelector(".category").value,
+      id: Date.now(),
+      status: "pending",
+      taskstart: Date.now(),
+      endtime: null,
+      date: new Date().toISOString().split("T")[0],
+    };
+
+    let tasks = gettask();
+    tasks.push(task);
+    savetask(tasks);
+    rendertask(task);
+  });
+}
+
 if (tasklist) {
   tasklist.addEventListener("click", (e) => {
     if (e.target.classList.contains("completed-btn")) {
       const taskitem = e.target.closest(".task-item");
 
       const id = Number(taskitem.dataset.id);
-       let tasks = gettask();
+      let tasks = gettask();
       tasks = tasks.map((task) => {
         if (task.id === id) {
           task.status = "completed";
@@ -131,7 +135,7 @@ if (tasklist) {
       const taskitem = e.target.closest(".task-item");
       const id = Number(taskitem.dataset.id);
       taskitem.remove();
-       let tasks = gettask();
+      let tasks = gettask();
       tasks = tasks.filter((task) => task.id != id);
       savetask(tasks);
     }
@@ -143,13 +147,12 @@ function filtertask() {
   const category = categoryselect.value;
   const status = statusselect.value;
 
-   const tasks = gettask();
+  const tasks = gettask();
   tasklist.innerHTML = "";
   const filterdtask = tasks.filter((task) => {
     const filterdpriority = priority === "" || task.priority === priority;
     const filterdcategory = category === "" || task.category === category;
     const filterdstatus = status === "" || task.status === status;
-
     return filterdpriority && filterdcategory && filterdstatus;
   });
   filterdtask.forEach(rendertask);
@@ -160,12 +163,12 @@ if (priorityselect && categoryselect && statusselect) {
   statusselect.addEventListener("change", filtertask);
 }
 window.addEventListener("DOMContentLoaded", () => {
-   const tasks = gettask();
+  const tasks = gettask();
   tasks.forEach(rendertask);
 });
 if (page === "dashboard") {
   const bars = document.querySelectorAll(".chart div");
-   let tasks = gettask();
+  let tasks = gettask();
   let todaydate = new Date().toISOString().split("T")[0];
   const taskduelist = document.querySelector(".taskdue");
   let count = 0;
@@ -251,7 +254,7 @@ if (page === "dashboard") {
 
 if (page === "analytics") {
   let today = new Date();
-   let tasks = gettask();
+  let tasks = gettask();
   const daybars = document.querySelectorAll(".charts-wrapper > div");
 
   let weekdata = {};
@@ -260,7 +263,6 @@ if (page === "analytics") {
     let date = new Date();
     date.setDate(today.getDate() - i);
     let key = date.toISOString().split("T")[0];
-    console.log(key);
     weekdata[key] = { planned: 0, completed: 0 };
   }
 
