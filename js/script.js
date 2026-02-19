@@ -86,7 +86,6 @@ function initTaskEvents() {
     tasklist.addEventListener("click", handleTaskAction);
   }
 }
-
 function handleaddTask(e) {
   e.preventDefault();
   const titleInput = document.querySelector(".titletask");
@@ -167,31 +166,41 @@ if (priorityselect && categoryselect && statusselect) {
 }
 window.addEventListener("DOMContentLoaded", () => {
   const tasks = gettask();
+  initTaskEvents();
   tasks.forEach(rendertask);
 });
-if (page === "dashboard") {
-  const bars = document.querySelectorAll(".chart div");
-  let tasks = gettask();
+
+if (page === "dashboard") initdashboard();
+
+function initdashboard() {
   let todaydate = new Date().toISOString().split("T")[0];
-  const taskduelist = document.querySelector(".taskdue");
+  let tasks = gettask();
+
+  const states = rendertodaytask(tasks, todaydate);
+  dashboardstates(states.count, states.compltedtodaytask);
+  focustime(tasks, todaydate);
+  renderweeklydata(tasks);
+}
+
+function rendertodaytask(tasks, todaydate) {
   let count = 0;
   let compltedtodaytask = 0;
-
+  const taskduelist = document.querySelector(".taskdue");
   tasks.forEach((task) => {
     if (task.date === todaydate) {
       const dashtodaytask = document.createElement("div");
       dashtodaytask.className = "dashboardtask";
       dashtodaytask.innerHTML = `
-      <div class="titleimg">
-       <img src="./assets/images/clock (1).png" alt="clock logo" />
-      <span class="title">${task.title}</span>
-      </div>
-      <div class="taskinfo">
-      <span class="category">${task.category}</span>
-      <span class="priority">${task.priority}</span>
-      <span>${task.date}</span>
-      </div>
-      `;
+       <div class="titleimg">
+        <img src="./assets/images/clock (1).png" alt="clock logo" />
+       <span class="title">${task.title}</span>
+       </div>
+       <div class="taskinfo">
+       <span class="category">${task.category}</span>
+       <span class="priority">${task.priority}</span>
+       <span>${task.date}</span>
+       </div>
+       `;
       taskduelist.appendChild(dashtodaytask);
       count++;
       if (task.status === "completed") {
@@ -199,7 +208,10 @@ if (page === "dashboard") {
       }
     }
   });
+  return { count, compltedtodaytask };
+}
 
+function dashboardstates(count, compltedtodaytask) {
   counttasks.textContent = count;
   let completionrate = 0;
   if (count > 0) {
@@ -208,9 +220,10 @@ if (page === "dashboard") {
   if (completionratebox) {
     completionratebox.textContent = `${completionrate}%`;
   }
+}
 
+function focustime(tasks, todaydate) {
   let totalfocusms = 0;
-
   tasks.forEach((task) => {
     if (
       task.date === todaydate &&
@@ -228,8 +241,11 @@ if (page === "dashboard") {
   if (focusbox) {
     focusbox.textContent = `${hours}H ${minutes}m ${totalsec}s`;
   }
+}
+function renderweeklydata(tasks) {
   let weeklydata = {};
   let today = new Date();
+  const bars = document.querySelectorAll(".chart div");
 
   for (let i = 6; i >= 0; i--) {
     let date = new Date();
@@ -254,54 +270,63 @@ if (page === "dashboard") {
     bar.style.height = height + "px";
   });
 }
+if (page === "analytics") initAnalytics();
 
-if (page === "analytics") {
-  let today = new Date();
+function initAnalytics() {
   let tasks = gettask();
   const daybars = document.querySelectorAll(".charts-wrapper > div");
-
-  let weekdata = {};
-
-  for (let i = 6; i >= 0; i--) {
-    let date = new Date();
-    date.setDate(today.getDate() - i);
-    let key = date.toISOString().split("T")[0];
-    weekdata[key] = { planned: 0, completed: 0 };
-  }
-
-  tasks.forEach((task) => {
-    if (weekdata[task.date]) {
-      weekdata[task.date].planned++;
-      if (task.status === "completed") {
-        weekdata[task.date].completed++;
-      }
+ let weekdata = {};
+  function getweekdata(tasks) {
+   
+    let today = new Date();
+    for (let i = 6; i >= 0; i--) {
+      let date = new Date();
+      date.setDate(today.getDate() - i);
+      let key = date.toISOString().split("T")[0];
+      weekdata[key] = { planned: 0, completed: 0 };
     }
-  });
-  let weekEntries = Object.entries(weekdata);
 
-  weekEntries.forEach(([key, day], index) => {
-    const container = daybars[index];
-    if (!container) return;
+    tasks.forEach((task) => {
+      if (weekdata[task.date]) {
+        weekdata[task.date].planned++;
+        if (task.status === "completed") {
+          weekdata[task.date].completed++;
+        }
+      }
+    });
+    return weekdata;
+  }
+  getweekdata(tasks);
 
-    const plannedbar = container.querySelector(".first-bar");
-    const completedbar = container.querySelector(".second-bar");
+  function renderAnalyticschart(weekdata) {
+    let weekEntries = Object.entries(weekdata);
+    console.log(weekEntries);
 
-    const plannedHeight = day.planned > 0 ? day.planned * 10 : 9;
-    const completedHeight = day.completed > 0 ? day.completed * 10 : 9;
+    weekEntries.forEach(([key, day], index) => {
+      const container = daybars[index];
+      if (!container) return;
 
-    plannedbar.style.height = plannedHeight + "px";
-    completedbar.style.height = completedHeight + "px";
+      const plannedbar = container.querySelector(".first-bar");
+      const completedbar = container.querySelector(".second-bar");
 
-    const dayName = new Date(key).toLocaleDateString();
+      const plannedHeight = day.planned > 0 ? day.planned * 10 : 9;
+      const completedHeight = day.completed > 0 ? day.completed * 10 : 9;
 
-    const tooltip = document.createElement("div");
-    tooltip.className = "bar-tooltip";
-    tooltip.innerHTML = `
+      plannedbar.style.height = plannedHeight + "px";
+      completedbar.style.height = completedHeight + "px";
+
+      const dayName = new Date(key).toLocaleDateString();
+
+      const tooltip = document.createElement("div");
+      tooltip.className = "bar-tooltip";
+      tooltip.innerHTML = `
     <strong>${dayName.toUpperCase()}</strong><br>
     Planned: ${day.planned}<br>
     Completed: ${day.completed}
-  `;
+   `;
 
-    container.appendChild(tooltip);
-  });
+      container.appendChild(tooltip);
+    });
+  }
+  renderAnalyticschart(weekdata);
 }
