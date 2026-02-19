@@ -17,10 +17,11 @@ const page = document.body.dataset.page;
 function gettask() {
   return JSON.parse(localStorage.getItem("tasks") || "[]");
 }
-
 function savetask(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+// downarrow aur darkmode
 
 downarrow.forEach((arrow) => {
   arrow.addEventListener("click", () => {
@@ -39,7 +40,6 @@ dashdarkicon.addEventListener("click", () => {
     darkmodeswitch.checked = isdarkmode;
   }
 });
-
 let localvl = localStorage.getItem("darkmode");
 if (localvl === "true") {
   container.classList.add("open");
@@ -51,6 +51,7 @@ if (darkmodeswitch) {
     localStorage.setItem("darkmode", darkmodeswitch.checked);
   });
 }
+
 function rendertask(task) {
   if (tasklist) {
     const taskdiv = document.createElement("div");
@@ -144,6 +145,7 @@ function handleTaskAction(e) {
     savetask(tasks);
   }
 }
+
 function filtertask() {
   const priority = priorityselect.value;
   const category = categoryselect.value;
@@ -159,6 +161,7 @@ function filtertask() {
   });
   filterdtask.forEach(rendertask);
 }
+
 if (priorityselect && categoryselect && statusselect) {
   priorityselect.addEventListener("change", filtertask);
   categoryselect.addEventListener("change", filtertask);
@@ -169,6 +172,8 @@ window.addEventListener("DOMContentLoaded", () => {
   initTaskEvents();
   tasks.forEach(rendertask);
 });
+
+// section dashboard
 
 if (page === "dashboard") initdashboard();
 
@@ -242,6 +247,7 @@ function focustime(tasks, todaydate) {
     focusbox.textContent = `${hours}H ${minutes}m ${totalsec}s`;
   }
 }
+
 function renderweeklydata(tasks) {
   let weeklydata = {};
   let today = new Date();
@@ -265,19 +271,19 @@ function renderweeklydata(tasks) {
 
   weeklyEntries.forEach(([dateKey, count], index) => {
     const bar = bars[index];
-
     const height = count > 0 ? count * 15 : 6;
     bar.style.height = height + "px";
   });
 }
-if (page === "analytics") initAnalytics();
 
+// analytics section
+
+if (page === "analytics") initAnalytics();
 function initAnalytics() {
   let tasks = gettask();
   const daybars = document.querySelectorAll(".charts-wrapper > div");
- let weekdata = {};
+  let weekdata = {};
   function getweekdata(tasks) {
-   
     let today = new Date();
     for (let i = 6; i >= 0; i--) {
       let date = new Date();
@@ -297,10 +303,8 @@ function initAnalytics() {
     return weekdata;
   }
   getweekdata(tasks);
-
   function renderAnalyticschart(weekdata) {
     let weekEntries = Object.entries(weekdata);
-    console.log(weekEntries);
 
     weekEntries.forEach(([key, day], index) => {
       const container = daybars[index];
@@ -314,9 +318,7 @@ function initAnalytics() {
 
       plannedbar.style.height = plannedHeight + "px";
       completedbar.style.height = completedHeight + "px";
-
       const dayName = new Date(key).toLocaleDateString();
-
       const tooltip = document.createElement("div");
       tooltip.className = "bar-tooltip";
       tooltip.innerHTML = `
@@ -324,9 +326,18 @@ function initAnalytics() {
     Planned: ${day.planned}<br>
     Completed: ${day.completed}
    `;
-
       container.appendChild(tooltip);
     });
   }
   renderAnalyticschart(weekdata);
+}
+
+if (page === "settings") {
+  const clearbtn = document.querySelector(".clearbtn");
+  clearbtn.addEventListener("click", () => {
+    localStorage.removeItem("tasks");
+
+    localStorage.setItem("darkmode","false");
+    window.location.reload();
+  });
 }
