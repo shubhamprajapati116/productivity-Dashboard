@@ -77,71 +77,74 @@ function rendertask(task) {
     tasklist.appendChild(taskdiv);
   }
 }
+function initTaskEvents() {
+  if (addtaskbtnn) {
+    addtaskbtnn.addEventListener("click", handleaddTask);
+  }
 
-if (addtaskbtnn) {
-  addtaskbtnn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const titleInput = document.querySelector(".titletask");
-    const priority = document.querySelector(".priority");
-    const category = document.querySelector(".category");
-    if (titleInput.value.trim() === "") {
-      alert("Title is required");
-      return;
-    } else if (priority.value === "") {
-      alert("priority is required");
-      return;
-    } else if (category.value === "") {
-      alert("category is required");
-      return;
-    }
-    const task = {
-      title: document.querySelector(".titletask").value,
-      priority: document.querySelector(".priority").value,
-      category: document.querySelector(".category").value,
-      id: Date.now(),
-      status: "pending",
-      taskstart: Date.now(),
-      endtime: null,
-      date: new Date().toISOString().split("T")[0],
-    };
+  if (tasklist) {
+    tasklist.addEventListener("click", handleTaskAction);
+  }
+}
 
+function handleaddTask(e) {
+  e.preventDefault();
+  const titleInput = document.querySelector(".titletask");
+  const priority = document.querySelector(".priority");
+  const category = document.querySelector(".category");
+  if (titleInput.value.trim() === "") {
+    alert("Title is required");
+    return;
+  } else if (priority.value === "") {
+    alert("priority is required");
+    return;
+  } else if (category.value === "") {
+    alert("category is required");
+    return;
+  }
+  const task = {
+    title: document.querySelector(".titletask").value,
+    priority: document.querySelector(".priority").value,
+    category: document.querySelector(".category").value,
+    id: Date.now(),
+    status: "pending",
+    taskstart: Date.now(),
+    endtime: null,
+    date: new Date().toISOString().split("T")[0],
+  };
+
+  let tasks = gettask();
+  tasks.push(task);
+  savetask(tasks);
+  rendertask(task);
+}
+function handleTaskAction(e) {
+  if (e.target.classList.contains("completed-btn")) {
+    const taskitem = e.target.closest(".task-item");
+
+    const id = Number(taskitem.dataset.id);
     let tasks = gettask();
-    tasks.push(task);
+    tasks = tasks.map((task) => {
+      if (task.id === id) {
+        task.status = "completed";
+        task.endtime = Date.now();
+      }
+      return task;
+    });
     savetask(tasks);
-    rendertask(task);
-  });
+    tasklist.innerHTML = "";
+    tasks.forEach(rendertask);
+  }
+
+  if (e.target.classList.contains("tasklistdelet")) {
+    const taskitem = e.target.closest(".task-item");
+    const id = Number(taskitem.dataset.id);
+    taskitem.remove();
+    let tasks = gettask();
+    tasks = tasks.filter((task) => task.id != id);
+    savetask(tasks);
+  }
 }
-
-if (tasklist) {
-  tasklist.addEventListener("click", (e) => {
-    if (e.target.classList.contains("completed-btn")) {
-      const taskitem = e.target.closest(".task-item");
-
-      const id = Number(taskitem.dataset.id);
-      let tasks = gettask();
-      tasks = tasks.map((task) => {
-        if (task.id === id) {
-          task.status = "completed";
-          task.endtime = Date.now();
-        }
-        return task;
-      });
-      savetask(tasks);
-      tasklist.innerHTML = "";
-      tasks.forEach(rendertask);
-    }
-
-    if (e.target.classList.contains("tasklistdelet")) {
-      const taskitem = e.target.closest(".task-item");
-      const id = Number(taskitem.dataset.id);
-      taskitem.remove();
-      let tasks = gettask();
-      tasks = tasks.filter((task) => task.id != id);
-      savetask(tasks);
-    }
-  });
-}
-
 function filtertask() {
   const priority = priorityselect.value;
   const category = categoryselect.value;
