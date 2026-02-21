@@ -332,12 +332,14 @@ function initAnalytics() {
   renderAnalyticschart(weekdata);
 }
 
+
+// section settings
 if (page === "settings") {
   const clearbtn = document.querySelector(".clearbtn");
   clearbtn.addEventListener("click", () => {
     localStorage.removeItem("tasks");
 
-    localStorage.setItem("darkmode","false");
+    localStorage.setItem("darkmode", "false");
     window.location.reload();
   });
 }
