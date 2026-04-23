@@ -20,9 +20,7 @@ function gettask() {
 function savetask(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
-
 // downarrow aur darkmode
-
 downarrow.forEach((arrow) => {
   arrow.addEventListener("click", () => {
     let isclosed = arrow.classList.toggle("close");
